@@ -14,6 +14,10 @@ module.exports = yeoman.Base.extend({
             type: 'input',
             name: 'name',
             message: 'What is your Model\'s name?',
+        }, {
+            type: 'input',
+            name: 'attrs',
+            message: 'Model\'s attributes list (optional, separated by commas):',
         }];
 
         return this.prompt(prompts).then(function(props) {
@@ -23,8 +27,14 @@ module.exports = yeoman.Base.extend({
     },
 
     writing: function() {
+      var iattrs = new String(this.props.attrs).split(',');
+        var attrs = [];
+        for (var i = 0; i < iattrs.length; i++) {
+            attrs.push(iattrs[i].trim());
+        }
         var context = {
-            name: this.props.name
+            name: this.props.name,
+            attrs: attrs
         };
         this.fs.copyTpl(
             this.templatePath('_Entities/_Entity.cs'),

@@ -11,6 +11,8 @@ namespace VitCorp.Model {
 
         [Key]
         public string Id { get; set; }
-        
+<% for(var i=0; i<attrs.length; i++) { -%>
+        public string <%= attrs[i] %> { get; set; }
+<% } -%>
     }
 }
